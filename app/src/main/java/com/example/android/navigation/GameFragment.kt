@@ -1,19 +1,3 @@
-/*
- * Copyright 2018, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.android.navigation
 
 import android.os.Bundle
@@ -28,33 +12,33 @@ import com.example.android.navigation.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
     data class Question(
-        val text: String,
-        val answers: List<String>)
+            val text: String,
+            val answers: List<String>)
 
     // The first answer is the correct one.  We randomize the answers before showing the text.
     // All questions must have four answers.  We'd want these to contain references to string
     // resources so we could internationalize. (Or better yet, don't define the questions in code...)
     private val questions: MutableList<Question> = mutableListOf(
-        Question(text = "What is Android Jetpack?",
-            answers = listOf("All of these", "Tools", "Documentation", "Libraries")),
-        Question(text = "What is the base class for layouts?",
-            answers = listOf("ViewGroup", "ViewSet", "ViewCollection", "ViewRoot")),
-        Question(text = "What layout do you use for complex screens?",
-            answers = listOf("ConstraintLayout", "GridLayout", "LinearLayout", "FrameLayout")),
-        Question(text = "What do you use to push structured data into a layout?",
-            answers = listOf("Data binding", "Data pushing", "Set text", "An OnClick method")),
-        Question(text = "What method do you use to inflate layouts in fragments?",
-            answers = listOf("onCreateView()", "onActivityCreated()", "onCreateLayout()", "onInflateLayout()")),
-        Question(text = "What's the build system for Android?",
-            answers = listOf("Gradle", "Graddle", "Grodle", "Groyle")),
-        Question(text = "Which class do you use to create a vector drawable?",
-            answers = listOf("VectorDrawable", "AndroidVectorDrawable", "DrawableVector", "AndroidVector")),
-        Question(text = "Which one of these is an Android navigation component?",
-            answers = listOf("NavController", "NavCentral", "NavMaster", "NavSwitcher")),
-        Question(text = "Which XML element lets you register an activity with the launcher activity?",
-            answers = listOf("intent-filter", "app-registry", "launcher-registry", "app-launcher")),
-        Question(text = "What do you use to mark a layout for data binding?",
-            answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
+            Question(text = "What is Android Jetpack?",
+                    answers = listOf("All of these", "Tools", "Documentation", "Libraries")),
+            Question(text = "What is the base class for layouts?",
+                    answers = listOf("ViewGroup", "ViewSet", "ViewCollection", "ViewRoot")),
+            Question(text = "What layout do you use for complex screens?",
+                    answers = listOf("ConstraintLayout", "GridLayout", "LinearLayout", "FrameLayout")),
+            Question(text = "What do you use to push structured data into a layout?",
+                    answers = listOf("Data binding", "Data pushing", "Set text", "An OnClick method")),
+            Question(text = "What method do you use to inflate layouts in fragments?",
+                    answers = listOf("onCreateView()", "onActivityCreated()", "onCreateLayout()", "onInflateLayout()")),
+            Question(text = "What's the build system for Android?",
+                    answers = listOf("Gradle", "Graddle", "Grodle", "Groyle")),
+            Question(text = "Which class do you use to create a vector drawable?",
+                    answers = listOf("VectorDrawable", "AndroidVectorDrawable", "DrawableVector", "AndroidVector")),
+            Question(text = "Which one of these is an Android navigation component?",
+                    answers = listOf("NavController", "NavCentral", "NavMaster", "NavSwitcher")),
+            Question(text = "Which XML element lets you register an activity with the launcher activity?",
+                    answers = listOf("intent-filter", "app-registry", "launcher-registry", "app-launcher")),
+            Question(text = "What do you use to mark a layout for data binding?",
+                    answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
     )
 
 
@@ -69,7 +53,7 @@ class GameFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGameBinding>(
-            inflater, R.layout.fragment_game, container, false)
+                inflater, R.layout.fragment_game, container, false)
 
         // Shuffles the questions and sets the question index to the first question.
         randomizeQuestions()
@@ -101,12 +85,13 @@ class GameFragment : Fragment() {
                     } else {
                         // We've won!  Navigate to the gameWonFragment.
                         view.findNavController()
-                            .navigate(R.id.action_gameFragment_to_gameWonFragment)
+                                .navigate(GameFragmentDirections
+                                        .actionGameFragmentToGameWonFragment(numQuestions, questionIndex))
                     }
                 } else {
                     // Game over! A wrong answer sends us to the gameOverFragment.
                     view.findNavController()
-                        .navigate(R.id.action_gameFragment_to_gameOverFragment)
+                            .navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }
             }
         }
